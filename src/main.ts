@@ -3,6 +3,8 @@
 import '../styles/styles.css';
 import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'materialize-css';
+
 // import 'aurelia-animator-css';
 import 'bootstrap';
 
@@ -25,7 +27,9 @@ export async function configure(aurelia: Aurelia) {
 
   aurelia.use
     .standardConfiguration()
-    .developmentLogging();
+    .developmentLogging()
+    .plugin('aurelia-materialize-bridge', bridge => bridge.useAll() );
+
 
   // Uncomment the line below to enable animation.
   //aurelia.use.plugin('aurelia-animator-css');
