@@ -1,0 +1,20 @@
+<template>
+    
+    <require from="../../resources/components/busy-indicator/busyindicator"></require>
+
+    <div>Scan Documents</div>
+    
+    <busy-indicator busy.bind="isBusy"
+                    image="../../assets/busy-indicator/5.gif">
+
+        <div class="col-md-6">
+            <compose view-model.bind="preview"></compose>
+        </div>
+        <div class="col-md-6">
+            <compose view-model.bind="properties"></compose>
+        </div>
+
+        <button click.delegate="startScan()"></button>
+        
+    </busy-indicator>
+</template>

@@ -1,0 +1,1 @@
+import * as contracts from '.';

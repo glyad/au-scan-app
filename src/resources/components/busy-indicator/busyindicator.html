@@ -1,0 +1,9 @@
+<template>
+    <require from="./busyindicator.css"></require>
+    <div show.bind="busy">
+        <img class="busy" src.bind="image">
+    </div>
+    <div class="busy-div" show.bind="busy">    
+    </div>
+    <slot></slot>
+</template>
