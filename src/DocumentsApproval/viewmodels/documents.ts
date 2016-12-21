@@ -2,16 +2,16 @@ import { IDocument } from './../../model/contracts/IDocument';
 import { DataService } from './../../model/implementation/DataService';
 import { autoinject, transient } from 'aurelia-framework';
 
-@autoinject
-@transient
+@autoinject()
 export class Documents {
 	
-    documents: Array<IDocument>
+    list: Array<IDocument>
 
-    constructor(private _dataService: DataService) {        
+    constructor(private _dataService: DataService) { 
+        this.list = this._dataService.documents;       
     }
 
     attached() {
-        this.documents = this._dataService.documents;
+        //this.list = this._dataService.documents;
     }
 }

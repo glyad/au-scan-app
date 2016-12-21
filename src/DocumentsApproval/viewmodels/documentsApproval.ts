@@ -5,5 +5,5 @@ import { autoinject } from 'aurelia-framework';
 @autoinject
 export class DocumentsApproval {
 
-     constructor() {}   
+     constructor(private list: Documents ) {}   
 }

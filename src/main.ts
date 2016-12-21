@@ -15,7 +15,7 @@ Bluebird.config({ warnings: false });
 export async function configure(aurelia: Aurelia) {
 
     ViewLocator.prototype.convertOriginToViewUrl = (origin) => {
-        console.log('ModuleId: ' + origin.moduleId + 'ModuleMember: ' + origin.moduleMember);
+        console.log('ModuleId: ' + origin.moduleId + ' ModuleMember: ' + origin.moduleMember);
         let moduleId = origin.moduleId;
         let id = moduleId.endsWith('.ts') ? moduleId.substring(0, moduleId.length - 3) : moduleId;
         console.log('id = ' + id);
@@ -39,7 +39,7 @@ export async function configure(aurelia: Aurelia) {
   // aurelia.use.plugin('aurelia-html-import-template-loader')
 
   await aurelia.start();
-  aurelia.setRoot('Shell/viewmodels/app');
+  aurelia.setRoot('shell/viewmodels/app');
 
   // if you would like your website to work offline (Service Worker), 
   // install and enable the @easy-webpack/config-offline package in webpack.config.js and uncomment the following code:
