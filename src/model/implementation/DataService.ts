@@ -16,10 +16,10 @@ export class DataService implements IDataService {
 
 		for (let i = 0; i < 100; i++) {
 			this._documents
-            	.push (	{ name: 'Document ${i}'
+            	.push (	{ name: 'Document ' + i.toString()
                 		, id: i
-                        , description: 'This is description of the Document #${i}'
-                        , caseId: 'Case #${i}' } );
+                        , description: 'This is description of the Document #' + i.toString()
+                        , caseId: 'Case #' + i.toString() } );
         }
 
     }
