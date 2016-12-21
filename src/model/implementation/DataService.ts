@@ -12,6 +12,18 @@ export class DataService implements IDataService {
 
     document: Document = new Document();
 
+    constructor () {
+
+		for (let i = 0; i < 100; i++) {
+			this._documents
+            	.push (	{ name: 'Document ${i}'
+                		, id: i
+                        , description: 'This is description of the Document #${i}'
+                        , caseId: 'Case #${i}' } );
+        }
+
+    }
+
     get documents() {
         return this._documents;
     }
