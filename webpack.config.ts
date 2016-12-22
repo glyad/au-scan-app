@@ -99,9 +99,9 @@ let config = generateConfig(
     envProd({ /* devtool: '...' */ }),
 
   aurelia({root: rootDir, src: srcDir, title: title, baseUrl: baseUrl}),
-  typescript(ENV !== 'test' ? {} : { options: { doTypeCheck: false, sourceMap: false, inlineSourceMap: true, inlineSources: true } }),
+  typescript(ENV !== 'test' ? {} : { options: { doTypeCheck: false, sourceMap: true, inlineSourceMap: false, inlineSources: false } }),
   html(),
-  css({ filename: 'styles.css', allChunks: true, sourceMap: false }),
+  css({ filename: 'styles.css', allChunks: true, sourceMap: true }),
   fontAndImages(),
   globalBluebird(),
   globalJquery(),

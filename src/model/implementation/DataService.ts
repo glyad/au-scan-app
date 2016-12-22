@@ -3,16 +3,17 @@ import { IDocument } from './../contracts/IDocument';
 import { singleton } from 'aurelia-framework';
 import { IDataService } from './../contracts/IDataService';
 
-@singleton()
 export class DataService implements IDataService {
     
     private _documents: Array<IDocument> = [];
 
-    imagePath : string = '';
+    imagePath : string = '../../assets/3.png';
 
     document: Document = new Document();
 
     constructor () {
+
+        console.log('DataService.ctr');
 
 		for (let i = 0; i < 100; i++) {
 			this._documents
@@ -43,6 +44,7 @@ export class DataService implements IDataService {
     UpdateImage(id: number): Promise<any> {
         return new Promise(resolve => setTimeout(() => {
             this.imagePath = "../../assets/" + id.toString() + ".png";
+            console.log(this.imagePath);
             resolve();
         }, 1000));
     }

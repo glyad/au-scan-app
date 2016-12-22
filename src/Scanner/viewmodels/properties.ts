@@ -15,4 +15,32 @@ export class Properties {
     get document() {
         return this._dataService.document;
     }    
+
+    get imagePath() {
+        //console.log('image - ' + this._dataService.imagePath);
+        return this._dataService.imagePath;
+    }
+
+    bind() {
+        
+        console.log('Properties ViewModel - bind();')
+    }
+
+    unbind() {
+        console.log('Properties ViewModel - unbind();')
+    }
+
+    attached() {
+        console.log('Properties ViewModel - attached();')
+    }
+
+    detached() {
+        console.log('Properties ViewModel - detached();')
+    }
+
+    // activate() {
+	// 	console.log('Properties ViewModel - activate();')
+    // }
+
+
 }

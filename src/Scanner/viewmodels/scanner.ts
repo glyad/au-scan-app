@@ -1,6 +1,5 @@
 import { DataService } from '../../model/implementation/DataService';
 import { autoinject } from 'aurelia-framework';
-import { IDataService } from '../../model/contracts/IDataService';
 import { Properties } from './properties';
 import { Preview } from './preview';
 
@@ -20,6 +19,8 @@ export class Scanner {
              .then(() => {
                  this.isBusy = false;
              })
-             .catch(() => {});
+             .catch((e) => {
+                 console.log(e);
+             });
         }
 }

@@ -3,7 +3,6 @@ import { DataService } from './../../model/implementation/DataService';
 import { autoinject, transient } from 'aurelia-framework';
 
 @autoinject()
-@transient()
 export class Documents {
 	
     list: Array<IDocument>;
