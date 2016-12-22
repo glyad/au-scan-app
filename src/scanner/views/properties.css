@@ -1,0 +1,3 @@
+md-collection-item.collection-item:not(.active):hover {
+  background-color: transparent;
+}

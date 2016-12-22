@@ -8,11 +8,12 @@
                     image="../../assets/busy-indicator/5.gif">
 
         <div class="col-md-6">
-            <compose view-model.bind="preview"></compose>
-        </div>
-        <div class="col-md-6">
             <compose view-model.bind="properties"></compose>
         </div>
+        <div class="col-md-6">
+            <compose view-model.bind="preview"></compose>
+        </div>
+
 
         <button click.trigger="startScan()"></button>
         

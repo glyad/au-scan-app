@@ -1,13 +1,11 @@
 <template>
-    <div>Properties</div>
-    <div>
-        <ul>
-            <li><div>Barcode ${document.id}</div></li>
-            <li><div>Document Name ${document.name}</div></li>
-            <li><div>Document Number ${document.documentNumber}</div></li>
-            <li><div>Document Description ${document.documentDescr}</div></li>
-            <li><div>Case ID ${document.caseId}</div></li>
-        </ul>
-        <p>imagePath = ${imagePath}</p>
-    </div>
+    <require from="./properties.css"></require>
+    <md-collection>
+        <md-collection-header><h4>Document Properties</h4></md-collection-header>
+        <md-collection-item class="accent-text">Barcode ${document.id}</md-collection-item>
+        <md-collection-item class="accent-text">Document Name ${document.name}</md-collection-item>
+        <md-collection-item class="accent-text">Document Number ${document.documentNumber}</md-collection-item>
+        <md-collection-item class="accent-text">Document Description ${document.documentDescr}</md-collection-item>
+        <md-collection-item class="accent-text">Case ID ${document.caseId}</md-collection-item>
+    </md-collection>
 </template>

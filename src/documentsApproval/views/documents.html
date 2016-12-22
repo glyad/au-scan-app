@@ -4,23 +4,25 @@
 
     <h2>Documents:</h2>
 
-    <div class="scrolled-content">
-        <md-collection view-model.ref="items">
-            <md-collection-item repeat.for="document of list" class="avatar ${ selector.isSelected ? 'selected' : '' } ${ selector.mdDisabled ? 'disabled' : '' }">
-                <md-collection-selector
-                view-model.ref="selector"
-                item.bind="document"
-                md-on-selection-changed.delegate="onSelectionChanged($event)">
-                <!--<img if.bind="$index !== 2" src="http://aurelia-ui-toolkits.github.io/demo-materialize/images/collections-sample-1.jpg" alt="" class="circle md-collection-selector__hover">-->
-                </md-collection-selector>
-                <span class="accent-text title">${document.name}</span>
-                <p>${document.description}</p>
-                <p><label>Case ID:&nbsp;&nbsp;</label>${document.caseId}</p>
-                <div class="secondary-content">
-                <i class="material-icons">send</i>
-                </div>
-            </md-collection-item>
-        </md-collection>
+    <div class="row">
+        
+    </div>
+    
+    <div class="row">
+        <div class="scrolled-content">
+    
+            <md-collection view-model.ref="items">
+                <md-collection-item repeat.for="document of list" class="avatar ${ selector.isSelected ? 'selected' : '' } ${ selector.mdDisabled ? 'disabled' : '' }">
+                    <md-collection-selector view-model.ref="selector" item.bind="document" md-on-selection-changed.delegate="onSelectionChanged($event)"></md-collection-selector>
+                    <span class="accent-text title">${document.name}</span>
+                    <p>${document.description}</p>
+                    <p><label>Case ID:&nbsp;&nbsp;</label>${document.caseId}</p>
+                    <div class="secondary-content">
+                    <i class="material-icons">send</i>
+                    </div>
+                </md-collection-item>
+            </md-collection>
+        </div>
     </div>
     
 </template>
