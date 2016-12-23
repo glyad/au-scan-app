@@ -1,1 +1,2 @@
-import * as model from '.';
+export * from './DataService';
+export * from './Document';

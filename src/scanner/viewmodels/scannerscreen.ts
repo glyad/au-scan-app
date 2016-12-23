@@ -3,8 +3,8 @@ import { autoinject } from 'aurelia-framework';
 import { Properties } from './properties';
 import { Preview } from './preview';
 
-@autoinject()
-export class Scanner {
+@autoinject
+export class ScannerScreen {
 
     isBusy: boolean = false;
 

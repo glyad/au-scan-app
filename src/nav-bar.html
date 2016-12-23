@@ -1,4 +1,16 @@
 <template bindable="router">
+  <md-navbar fixed="true">
+    <a href="#" class="brand-logo left"><span class="flow-text">${router.title}</span></a>
+    <ul class="right hide-on-med-and-down">
+      <li md-waves repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+        <a href.bind="row.href">${row.title}</a>
+      </li>
+    </ul>
+  </md-navbar>
+</template>
+
+
+<!--<template bindable="router">
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#skeleton-navigation-navbar-collapse">
@@ -27,4 +39,4 @@
       </ul>
     </div>
   </nav>
-</template>
+</template>-->

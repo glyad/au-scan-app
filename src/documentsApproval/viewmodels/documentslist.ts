@@ -1,9 +1,9 @@
-import { IDocument } from './../../model/contracts/IDocument';
-import { DataService } from './../../model/implementation/DataService';
+import { IDocument } from './../../model/contracts';
+import { DataService } from './../../model/implementation';
 import { autoinject, transient } from 'aurelia-framework';
 
 @autoinject()
-export class Documents {
+export class DocumentsList {
 	
     list: Array<IDocument>;
     items;

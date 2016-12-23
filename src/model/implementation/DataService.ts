@@ -1,7 +1,6 @@
-import { Document } from './Document';
-import { IDocument } from './../contracts/IDocument';
+import { Document } from '.';
+import { IDocument, IDataService } from './../contracts';
 import { singleton } from 'aurelia-framework';
-import { IDataService } from './../contracts/IDataService';
 
 export class DataService implements IDataService {
     

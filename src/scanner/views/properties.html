@@ -2,7 +2,11 @@
     <require from="./properties.css"></require>
     <md-collection>
         <md-collection-header><h4>Document Properties</h4></md-collection-header>
-        <md-collection-item class="accent-text">Barcode ${document.id}</md-collection-item>
+        <md-collection-item class="accent-text">
+            <md-card md-title="Barcode"></md-card>
+                <div>${document.id}</div>
+            </md-card>
+        </md-collection-item>
         <md-collection-item class="accent-text">Document Name ${document.name}</md-collection-item>
         <md-collection-item class="accent-text">Document Number ${document.documentNumber}</md-collection-item>
         <md-collection-item class="accent-text">Document Description ${document.documentDescr}</md-collection-item>

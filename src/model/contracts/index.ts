@@ -1,1 +1,2 @@
-import * as contracts from '.';
+export * from './IDataService';
+export * from './IDocument';
