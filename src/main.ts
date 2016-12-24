@@ -15,12 +15,12 @@ Bluebird.config({ warnings: false });
 export async function configure(aurelia: Aurelia) {
 
     ViewLocator.prototype.convertOriginToViewUrl = (origin) => {
-        console.log('ModuleId: ' + origin.moduleId + ' ModuleMember: ' + origin.moduleMember);
+        console.log('Origin ModuleId: ' + origin.moduleId + ' Origin ModuleMember: ' + origin.moduleMember);
         let moduleId = origin.moduleId;
         let id = moduleId.endsWith('.ts') ? moduleId.substring(0, moduleId.length - 3) : moduleId;
         console.log('id = ' + id);
         let result = `${id.replace('viewmodels', 'views')}.html`;
-        console.log(result);
+        console.log('Result = ' + result);
         return result; 
     };
 

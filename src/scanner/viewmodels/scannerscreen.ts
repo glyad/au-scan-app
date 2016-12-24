@@ -9,8 +9,8 @@ export class ScannerScreen {
     isBusy: boolean = false;
 
     constructor(private _dataService: DataService, 
-                private preview: Preview,
-                private properties: Properties) { }
+                private previewViewModel: Preview,
+                private propertiesViewModel: Properties) { }
 
     startScan(){
         this.isBusy = true;
