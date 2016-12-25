@@ -7,6 +7,8 @@ export class DocumentsList {
 	
     list: Array<IDocument>;
     items;
+    canClear: boolean = false;
+    canSelectAll: boolean = true;
 
     constructor(private _dataService: DataService) { 
         this.list = this._dataService.documents;       
@@ -15,7 +17,10 @@ export class DocumentsList {
 	onSelectionChanged(e) {
 	    let selected = this.items.getSelected();
 	    let names = selected.map(i => i.name);
-	    //this.logger.log('selection changed: ' + names.join(', '));
+        this.canClear = names.length != 0;    
+        this.canSelectAll = this.list.length != selected.length;            
     }
+
+    
     
 }
