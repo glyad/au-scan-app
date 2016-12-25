@@ -7,6 +7,7 @@
     <div class="row">
         <button md-button click.delegate="items.selectAll()" disabled.bind="!canSelectAll">select all</button>
         <button md-button click.delegate="items.clearSelection()" disabled.bind="!canClear">clear</button>
+        <button md-button click.delegate="removeSelectedItems()" disabled.bind="!canRemoveSelectedItem">remove</button>
     </div>
     
     <div class="row">
