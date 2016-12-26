@@ -1,3 +1,3 @@
 export interface IViewModelCreatorService {
-    create<T>();
+    create<T>(type);
 }
