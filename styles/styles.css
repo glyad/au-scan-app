@@ -127,6 +127,13 @@ div.au-stagger {
   border: 2px #FFF solid;
 }
 
+.lang_en_he{
+  color: #ffffff;
+}
+.lang{
+  margin-right: 20px;
+}
+
 /* animation definitions */
 @-webkit-keyframes fadeInRight {
   0% {
