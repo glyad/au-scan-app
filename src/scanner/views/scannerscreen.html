@@ -2,12 +2,12 @@
     
     <require from="../../resources/components/busy-indicator/busyindicator"></require>
 
-    <div bdo dir="rtl">
+    <div class="flipp" dir="rtl">
     
     <div>Scan Documents</div>
     
     <busy-indicator busy.bind="isBusy"
-                    image="../../assets/busy-indicator/5.gif">
+                    image="../../assets/busy-indicator/5.gif" dir="rtl">
 
         <div class="col-md-3">
             <compose view-model.bind="propertiesViewModel" view="../views/properties.html"></compose>
