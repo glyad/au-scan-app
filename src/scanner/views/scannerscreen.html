@@ -2,22 +2,20 @@
     
     <require from="../../resources/components/busy-indicator/busyindicator"></require>
 
-    <div class="flipp" dir="rtl">
+    <div class="flipp">
     
     <div>Scan Documents</div>
     
     <busy-indicator busy.bind="isBusy"
-                    image="../../assets/busy-indicator/5.gif" dir="rtl">
+                    image="../../assets/busy-indicator/5.gif">
 
         <div class="col-md-3">
             <compose view-model.bind="propertiesViewModel" view="../views/properties.html"></compose>
         </div>
-        <div class="col-md-offset-3 col-md-6">
+        <div class="col-md-offset-3 col-md-6 center">
             <compose view-model.bind="previewViewModel" view="../views/preview.html"></compose>
+            <button class="waves-effect waves-light btn scan" click.trigger="startScan()">Scanner</button>
         </div>
-
-
-        <button click.trigger="startScan()"></button>
         
     </busy-indicator>
 </template>

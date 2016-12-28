@@ -9,7 +9,7 @@ export class App {
   router: Router;
 
   @observable()
-  rtl: boolean = false;
+  public rtl: boolean = false;
 
   constructor(){
   }
@@ -24,7 +24,8 @@ export class App {
     this.router = router;
   }
 
-  rtlChanged(newValue, oldValue){
-  	console.log('New Value is ' + newValue.toString());
+  private rtlChanged(newValue: boolean, oldValue: boolean): void {
+  	console.log('New Value is ' + newValue);
   }
+ 
 }
