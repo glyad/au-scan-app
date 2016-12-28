@@ -5,6 +5,10 @@ import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'materialize-css';
 
+import {I18N} from 'aurelia-i18n';
+import * as Backend from 'i18next-xhr-backend';
+
+
 // import 'aurelia-animator-css';
 import 'bootstrap';
 

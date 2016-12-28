@@ -64,7 +64,8 @@ const coreBundles = {
     'aurelia-templating',
     'aurelia-templating-binding',
     'aurelia-templating-router',
-    'aurelia-templating-resources'
+    'aurelia-templating-resources',
+    'aurelia-i18n' // add aurelia-i18n to the array
   ]
 }
 
