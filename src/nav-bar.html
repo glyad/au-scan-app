@@ -1,21 +1,24 @@
 <template bindable="router">
-   <div class="center"><img  src="../img/logo.png"></div>
-   <md-navbar fixed="true">
-     <a href="#" class="brand-logo left"><span class="flow-text">${router.title}</span></a>
-    <ul class="right hide-on-med-and-down">
-      <li>
-          <form class="lang" action="#">
-          <input name="lang" type="radio" class="with-gap" id="en" checked="checked"/>
-               <label class="lang_en_he" for="en">EN</label>
-          <input name="lang" type="radio" class="with-gap" id="he" />
-               <label class="lang_en_he" for="he">HE</label>
-          </form>
-      </li>
-      <li md-waves repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
-        <a href.bind="row.href">${row.title}</a>
-      </li>
-    </ul>
-  </md-navbar>
+ <div class="center"><img  src="../img/logo.png"></div>
+ <md-navbar fixed="true">
+   <a href="#" class="brand-logo left"><span class="flow-text">${router.title}</span></a>
+   <ul class="right hide-on-med-and-down">
+    <li> hebrew = ${hebrew} -----</li>
+    <li>
+      <!-- Switch -->
+      <div class="switch lang">
+      <label class="lang_en_he">     EN
+         <input type="checkbox" checked.bind="hebrew">
+         <span class="lever"></span> HE
+       </label>
+     </div>
+
+   </li>
+   <li md-waves repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+    <a href.bind="row.href">${row.title}</a>
+  </li>
+</ul>
+</md-navbar>
 </template>
 
 
