@@ -1,14 +1,14 @@
-<template bindable="router">
+<template bindable="router, rtl">
  <div class="center"><img  src="../img/logo.png"></div>
  <md-navbar fixed="true">
    <a href="#" class="brand-logo left"><span class="flow-text">${router.title}</span></a>
    <ul class="right hide-on-med-and-down">
-    <li> hebrew = ${hebrew} -----</li>
+    <li> hebrew = ${rtl} -----</li>
     <li>
       <!-- Switch -->
       <div class="switch lang">
       <label class="lang_en_he">     EN
-         <input type="checkbox" checked.bind="hebrew">
+         <input type="checkbox" checked.bind="rtl">
          <span class="lever"></span> HE
        </label>
      </div>
