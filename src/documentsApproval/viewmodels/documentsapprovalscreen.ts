@@ -1,19 +1,19 @@
-import { ViewModelCreatorService } from './../../logofx/view-model/ViewModelCreatorService';
+import { IViewModelCreatorService, ViewModelCreatorService } from './../../logofx/view-model';
 import { DocumentsList } from './documentslist';
 import { DataService } from './../../model/implementation';
-import { autoinject } from 'aurelia-framework';
+import { inject } from 'aurelia-framework';
 
-@autoinject
+@inject(ViewModelCreatorService)
 export class DocumentsApprovalScreen {
 
     _myList: DocumentsList;
 
-    constructor(private _vmcs: ViewModelCreatorService) {
+    constructor(private _viewModelCreatorService: IViewModelCreatorService) {
         //console.log('DocumentsApprovalScreen.ctor. _vmcs = ' + _vmcs);
     }   
 
     bind() {
-        this._myList = this._vmcs.create<DocumentsList>(DocumentsList);
+        this._myList = this._viewModelCreatorService.create<DocumentsList>(DocumentsList);
         //console.log('ViewModel is ' + this._myList.list.length.toString());
     }
 

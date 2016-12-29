@@ -1,22 +1,31 @@
+import { ViewModelCreatorService } from './../../logofx/view-model/ViewModelCreatorService';
+import { IDataService } from './../../model/contracts/IDataService';
+import { IViewModelCreatorService } from './../../logofx/view-model/IViewModelCreatorService';
 import { DataService } from '../../model/implementation/DataService';
-import { autoinject } from 'aurelia-framework';
+import { autoinject, inject } from 'aurelia-framework';
 import { Properties } from './properties';
 import { Preview } from './preview';
 
-@autoinject
+@inject(DataService, ViewModelCreatorService) 
 export class ScannerScreen {
 
     isBusy: boolean = false;
+    public previewViewModel: Preview;
+    public propertiesViewModel: Properties
 
-    constructor(private _dataService: DataService, 
-                private previewViewModel: Preview,
-                private propertiesViewModel: Properties) { }
+    constructor(private _dataService: IDataService, 
+                private _viewModelCreatorService: IViewModelCreatorService) { }
+
+    created() {
+        this.previewViewModel = this._viewModelCreatorService.create<Preview>(Preview);
+        this.propertiesViewModel = this._viewModelCreatorService.create<Properties>(Properties);
+    }
 
     startScan(){
         this.isBusy = true;
         this._dataService
             .scanDocument()
-             .then(() => {
+            .then(() => {
                  this.isBusy = false;
              })
              .catch((e) => {

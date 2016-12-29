@@ -1,12 +1,10 @@
 import { IViewModelCreatorService } from './IViewModelCreatorService';
-import { Container, singleton, autoinject } from 'aurelia-framework';
+import { Container } from 'aurelia-framework';
 
-//@autoinject()
-//@singleton()
 export class ViewModelCreatorService implements IViewModelCreatorService {
 
 
-    public create<T>(type): T {
+    public create<T>(type: any, ...rest: any[]): T {
         return <T>Container.instance.get(type);
     }
 }

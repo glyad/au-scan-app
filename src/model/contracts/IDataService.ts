@@ -4,7 +4,7 @@ export interface IDataService {
 
     documents: Array<IDocument>;
 
-    scanDocument(): void;
+    scanDocument(): Promise<any>;
     // getDocument(id: number);
     // getDocuments(): void;
     // createDocument(): void;
