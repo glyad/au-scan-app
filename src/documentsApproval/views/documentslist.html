@@ -2,7 +2,7 @@
 
     <require from="./documentslist.css"></require>
 
-    <h2>Documents:</h2>
+    <h5>Documents:</h5>
 
     <div class="row">
         <button md-button click.delegate="items.selectAll()" disabled.bind="!canSelectAll">select all</button>
@@ -20,7 +20,7 @@
                     <p>${document.description}</p>
                     <p><label>Case ID:&nbsp;&nbsp;</label>${document.caseId}</p>
                     <div class="secondary-content">
-                    <i class="material-icons">send</i>
+                    <!--<i class="material-icons">send</i>-->
                     </div>
                 </md-collection-item>
             </md-collection>

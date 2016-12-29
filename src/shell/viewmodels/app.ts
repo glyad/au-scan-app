@@ -2,17 +2,24 @@ import { DocumentsApprovalScreen } from './../../documentsApproval/viewmodels';
 import { ScannerScreen } from './../../scanner/viewmodels';
 import { Aurelia, observable } from 'aurelia-framework';
 import {Router, RouterConfiguration} from 'aurelia-router';
+import {inject} from 'aurelia-framework';
+import {I18N} from 'aurelia-i18n';
+import {HttpClient} from 'aurelia-fetch-client';
+import * as Backend from 'i18next-xhr-backend';
 
 
+@inject(HttpClient, I18N)
 export class App {
- 
+
   router: Router;
 
   @observable()
   public rtl: boolean = false;
 
-  constructor(){
-  }
+  constructor(public i18n: I18N){
+
+       }
+
 
   configureRouter(config: RouterConfiguration, router: Router) {
     config.title = 'Aurelia';
@@ -25,7 +32,11 @@ export class App {
   }
 
   private rtlChanged(newValue: boolean, oldValue: boolean): void {
-  	console.log('New Value is ' + newValue);
+    if (newValue===true){
+       console.log(newValue);
+
+    }
+
   }
  
 }

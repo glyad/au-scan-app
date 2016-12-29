@@ -4,9 +4,9 @@
   
   <md-colors md-primary-color="#ee6e73" md-accent-color="#009688"></md-colors>
   
-  <nav-bar router.bind="router" rtl.bind="rtl"></nav-bar>
+  <nav-bar router.bind="router" rtl.two-way="rtl"></nav-bar>
 
-  <div class="page-host">
-    <router-view></router-view>
+  <div class="page-host" dir.two-way="rtl==true?'rtl':'ltr'">
+     <router-view rtl.two-way="rtl"></router-view>
   </div>
 </template>
