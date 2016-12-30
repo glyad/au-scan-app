@@ -1,248 +1,252 @@
-// import {customElement, bindable, inject, bindingMode, TaskQueue, Loader} from 'aurelia-framework';
-// import {PDFJS} from 'pdfjs-dist';
-// //import 'pdfjs-dist/build/pdf.combined';
+import { element } from 'aurelia-protractor-plugin/protractor';
+import {customElement, bindable, inject, bindingMode, TaskQueue, Loader} from 'aurelia-framework';
+import {PDFJS} from 'pdfjs-dist';
+import 'pdfjs-dist';
 
-// /* Due to a current limitation in Aurelia's templating, it's not possible to declare multiple
-// methods in an event handler with separate binding behaviors. We work around this by duplicating
-// the event name by adding these lines to our ViewModel. */
-// import {SyntaxInterpreter} from 'aurelia-templating-binding';
+/* Due to a current limitation in Aurelia's templating, it's not possible to declare multiple
+methods in an event handler with separate binding behaviors. We work around this by duplicating
+the event name by adding these lines to our ViewModel. */
+import {SyntaxInterpreter} from 'aurelia-templating-binding';
 
+//SyntaxInterpreter.prototype.trigger2 = SyntaxInterpreter.prototype.trigger;
 
-// @customElement('pdf-document')
-// @bindable({ name: 'url' })
-// @bindable({ name: 'page', defaultValue: 1, defaultBindingMode: bindingMode.twoWay })
-// @bindable({ name: 'lastpage', defaultValue: 1, defaultBindingMode: bindingMode.twoWay })
-// @bindable({ name: 'scale', defaultValue: 1, defaultBindingMode: bindingMode.twoWay })
-// @inject(TaskQueue, Loader)
-// export class PdfDocument {
+@customElement('pdf-document')
+@inject(TaskQueue, Loader)
+export class PdfDocument {
 
-//     url;
-//     page;
-//     lastpage;
-//     scale;
-
-//     taskQueue: TaskQueue;
-//     worker;
-//     fingerprint;
-//     pages = [];
-
-//     currentPage = null;
-
-//     resolveDocumentPending;
-//     documentPending;
-
-//   constructor (taskQueue, loader) {
+    @bindable()
+    url: string;
     
-//     SyntaxInterpreter.prototype.trigger2 = SyntaxInterpreter.prototype.trigger;
+    @bindable({ name: 'page', defaultValue: 1, defaultBindingMode: bindingMode.twoWay })
+    page: number = 1;
 
-//     PDFJS.workerSrc = loader.normalizeSync('pdfjs-dist/build/pdf.worker.js');
+    @bindable({ name: 'lastpage', defaultValue: 1, defaultBindingMode: bindingMode.twoWay })
+    lastpage: number = 1;
 
-//     this.taskQueue = taskQueue;
-//     this.worker = new PDFJS.PDFWorker();
+    @bindable({ name: 'scale', defaultValue: 1, defaultBindingMode: bindingMode.twoWay })
+    scale: number = 1;
 
-//     this.fingerprint = generateUniqueDomId();
-//     this.pages = [];
+    worker: PDFJS.PDFWorker;
 
-//     this.currentPage = null;
-//     this.resolveDocumentPending;
-//   }
+    fingerprint: string;
 
-//   detached () {
-//     return this.documentPending
-//       .then((pdf) => {
-//         if (pdf) {
-//           pdf.destroy();
-//         }
-//         this.worker.destroy();
-//       })
-//       .catch(() => {
-//         this.worker.destroy();
-//       })
-//   }
+    pages: Promise<any>[] = [];
 
-//   urlChanged (newValue, oldValue) {
-//     if (newValue === oldValue) return;
+    currentPage: any = null;
 
-//     var promise = this.documentPending || Promise.resolve();
-//     this.documentPending = new Promise((resolve, reject) => {
-//       this.resolveDocumentPending = resolve.bind(this);
-//     });
+    documentPending: Promise<any>;
 
-//     return promise
-//       .then((pdf) => {
-//         if (pdf) {
-//           pdf.destroy();
-//         }
-//         return PDFJS.getDocument({ url: newValue, worker: this.worker });
-//       })
-//       .then((pdf) => {
-//         this.lastpage = pdf.numPages;
+    resolveDocumentPending: any;
+    container: any;
 
-//         pdf.cleanupAfterRender = true;
-//         for (var i = 0; i < pdf.numPages; i++) {
-//           this.pages[i] = pdf.getPage(Number(i + 1))
-//             .then((page) => {
-//               var viewport = page.getViewport(this.scale);
-//               var element = document.getElementById(`${this.fingerprint}-page${page.pageNumber}`);
+  constructor (private taskQueue, loader) {
+    //SyntaxInterpreter.prototype.trigger2 = SyntaxInterpreter.prototype.trigger;
+    
+    PDFJS.workerSrc = loader.normalizeSync('pdfjs-dist/build/pdf.worker.js');
 
-//               this.taskQueue.queueMicroTask(() => {
-//                 element.height = viewport.height;
-//                 element.width = viewport.width;
-//               });
+    this.worker = new PDFJS.PDFWorker();
 
-//               return {
-//                 element: element,
-//                 page: page,
-//                 rendered: false,
-//                 clean: false
-//               };
-//             })
-//         }
+    this.fingerprint = generateUniqueDomId();    
 
-//         this.pages.forEach((page) => {
-//           page.then((renderObject) => {
-//             if (checkIfElementVisible(this.container, renderObject.element))
-//             {
-//               if (renderObject.rendered) return;
-//               render(page, this.scale);
-//             }
-//           });
-//         });
+  }
 
-//         this.resolveDocumentPending(pdf);
-//       });
-//   }
+  detached () {
+    return this.documentPending
+      .then((pdf) => {
+        if (pdf) {
+          pdf.destroy();
+        }
+        this.worker.destroy();
+      })
+      .catch(() => {
+        this.worker.destroy();
+      })
+  }
 
-//   pageChanged (newValue, oldValue) {
-//     if (newValue === oldValue || isNaN(Number(newValue)) || Number(newValue) > this.lastpage || Number(newValue) < 0) {
-//       this.page = oldValue;
-//       return;
-//     }
+  urlChanged (newValue, oldValue) {
+    if (newValue === oldValue) return;
 
-//     if (Math.abs(newValue - oldValue) <= 1) return;
+    var promise = this.documentPending || Promise.resolve();
+    this.documentPending = new Promise((resolve, reject) => {
+      this.resolveDocumentPending = resolve.bind(this);
+    });
 
-//     this.pages[newValue - 1]
-//       .then((renderObject) => {
-//         this.container.scrollTop = renderObject.element.offsetTop;
-//         render(this.pages[newValue - 1], this.scale);
-//       });
-//   }
+    return promise
+      .then((pdf) => {
+        if (pdf) {
+          pdf.destroy();
+        }
+        return PDFJS.getDocument({ url: newValue, worker: this.worker });
+      })
+      .then((pdf) => {
+        this.lastpage = pdf.numPages;
 
-//   scaleChanged (newValue, oldValue) {
-//     if (newValue === oldValue || isNaN(Number(newValue))) return;
+        pdf.cleanupAfterRender = true;
+        for (var i = 0; i < pdf.numPages; i++) {
+          this.pages[i] = pdf.getPage(Number(i + 1))
+            .then((page) => {
+              var viewport = page.getViewport(this.scale);
+              var element: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById(`${this.fingerprint}-page${page.pageNumber}`);
+                console.log('element = ' + element.id);
 
-//     Promise.all(this.pages)
-//       .then((values) => {
-//         values.forEach((renderObject) => {
-//           if (!renderObject) return;
+              this.taskQueue.queueMicroTask(() => {
+                element.height = viewport.height;
+                element.width = viewport.width;
+              });
 
-//           var viewport = renderObject.page.getViewport(newValue);
+              return {
+                element: element,
+                page: page,
+                rendered: false,
+                clean: false
+              };
+            })
+        }
 
-//           renderObject.rendered = false;
+        this.pages.forEach((page) => {
+          page.then((renderObject) => {
+            if (checkIfElementVisible(this.container, renderObject.element))
+            {
+              if (renderObject.rendered) return;
+              render(page, this.scale);
+            }
+          });
+        });
 
-//           this.taskQueue.queueMicroTask(() => {
-//             renderObject.element.height = viewport.height;
-//             renderObject.element.width = viewport.width;
+        this.resolveDocumentPending(pdf);
+      });
+  }
 
-//             if (renderObject.page.pageNumber === this.page) {
-//               this.container.scrollTop = renderObject.element.offsetTop;
-//             }
-//           });
-//         });
+  pageChanged (newValue, oldValue) {
+    if (newValue === oldValue || isNaN(Number(newValue)) || Number(newValue) > this.lastpage || Number(newValue) < 0) {
+      this.page = oldValue;
+      return;
+    }
 
-//         return values;
-//       })
-//       .then((values) => {
-//         this.pages.forEach((page) => {
-//           page.then((renderObject) => {
-//             this.taskQueue.queueMicroTask(() => {
-//               if (checkIfElementVisible(this.container, renderObject.element))
-//               {
-//                 render(page, this.scale);
-//               }
-//             });
-//           });
-//         });
-//       });
-//   }
+    if (Math.abs(newValue - oldValue) <= 1) return;
 
-//   pageHandler () {
-//     this.pages.forEach((page) => {
-//       page.then((renderObject) => {
-//         if ((this.container.scrollTop + this.container.clientHeight) >= renderObject.element.offsetTop
-//           && (this.container.scrollTop <= renderObject.element.offsetTop))
-//         {
-//           this.page = renderObject.page.pageNumber;
-//         }
-//       });
-//     });
-//   }
+    this.pages[newValue - 1]
+      .then((renderObject) => {
+        this.container.scrollTop = renderObject.element.offsetTop;
+        render(this.pages[newValue - 1], this.scale);
+      });
+  }
 
-//   renderHandler () {
-//     Promise.all(this.pages)
-//       .then((values) => {
-//         values.forEach((renderObject) => {
-//           if (!renderObject) return;
+  scaleChanged (newValue, oldValue) {
+    if (newValue === oldValue || isNaN(Number(newValue))) return;
 
-//           if (!checkIfElementVisible(this.container, renderObject.element))
-//           {
-//             if (renderObject.rendered && renderObject.clean) {
-//               renderObject.page.cleanup();
-//               renderObject.clean = true;
-//             }
+    Promise.all(this.pages)
+      .then((values) => {
+        values.forEach((renderObject) => {
+          if (!renderObject) return;
 
-//             return;
-//           }
+          var viewport = renderObject.page.getViewport(newValue);
 
-//           this.taskQueue.queueMicroTask(() => {
-//             if (renderObject.rendered) return;
-//             render(renderObject, this.scale);
-//           });
-//         });
-//       });
-//   }
-// }
+          renderObject.rendered = false;
 
-// var generateUniqueDomId = function () {
-//   var S4 = function() {
-//     return (((1 + Math.random()) * 0x10000) | 0)
-//       .toString(16)
-//       .substring(1);
-//   };
+          this.taskQueue.queueMicroTask(() => {
+            renderObject.element.height = viewport.height;
+            renderObject.element.width = viewport.width;
 
-//   return `_${S4()}${S4()}-${S4()}-${S4()}-${S4()}-${S4()}${S4()}${S4()}`;
-// }
+            if (renderObject.page.pageNumber === this.page) {
+              this.container.scrollTop = renderObject.element.offsetTop;
+            }
+          });
+        });
 
-// var checkIfElementVisible = function (container, element) {
-//   var containerBounds = {
-//     top: container.scrollTop,
-//     bottom: container.scrollTop + container.clientHeight
-//   };
+        return values;
+      })
+      .then((values) => {
+        this.pages.forEach((page) => {
+          page.then((renderObject) => {
+            this.taskQueue.queueMicroTask(() => {
+              if (checkIfElementVisible(this.container, renderObject.element))
+              {
+                render(page, this.scale);
+              }
+            });
+          });
+        });
+      });
+  }
 
-//   var elementBounds = {
-//     top: element.offsetTop,
-//     bottom: element.offsetTop + element.clientHeight
-//   };
+  pageHandler () {
+    this.pages.forEach((page) => {
+      page.then((renderObject) => {
+        if ((this.container.scrollTop + this.container.clientHeight) >= renderObject.element.offsetTop
+          && (this.container.scrollTop <= renderObject.element.offsetTop))
+        {
+          this.page = renderObject.page.pageNumber;
+        }
+      });
+    });
+  }
 
-//   return (!((elementBounds.bottom < containerBounds.top && elementBounds.top < containerBounds.top)
-//     || (elementBounds.top > containerBounds.bottom && elementBounds.bottom > containerBounds.bottom)));
-// }
+  renderHandler () {
+    Promise.all(this.pages)
+      .then((values) => {
+        values.forEach((renderObject) => {
+          if (!renderObject) return;
 
-// var render = function (renderPromise, scale) {
-//   return Promise.resolve(renderPromise)
-//     .then((renderObject) => {
-//       if (renderObject.rendered) return Promise.resolve(renderObject);
-//       renderObject.rendered = true;
+          if (!checkIfElementVisible(this.container, renderObject.element))
+          {
+            if (renderObject.rendered && renderObject.clean) {
+              renderObject.page.cleanup();
+              renderObject.clean = true;
+            }
 
-//       var viewport = renderObject.page.getViewport(scale);
-//       var context = renderObject.element.getContext('2d');
+            return;
+          }
 
-//       return renderObject.page.render({
-//         canvasContext: context,
-//         viewport: viewport
-//       })
-//         .promise.then(() => {
-//           return renderObject;
-//         });
-//   });
-// };
+          this.taskQueue.queueMicroTask(() => {
+            if (renderObject.rendered) return;
+            render(renderObject, this.scale);
+          });
+        });
+      });
+  }
+}
+
+var generateUniqueDomId = function () {
+  var S4 = function() {
+    return (((1 + Math.random()) * 0x10000) | 0)
+      .toString(16)
+      .substring(1);
+  };
+
+  return `_${S4()}${S4()}-${S4()}-${S4()}-${S4()}-${S4()}${S4()}${S4()}`;
+}
+
+var checkIfElementVisible = function (container, element) {
+  var containerBounds = {
+    top: container.scrollTop,
+    bottom: container.scrollTop + container.clientHeight
+  };
+
+  var elementBounds = {
+    top: element.offsetTop,
+    bottom: element.offsetTop + element.clientHeight
+  };
+
+  return (!((elementBounds.bottom < containerBounds.top && elementBounds.top < containerBounds.top)
+    || (elementBounds.top > containerBounds.bottom && elementBounds.bottom > containerBounds.bottom)));
+}
+
+var render = function (renderPromise, scale) {
+  return Promise.resolve(renderPromise)
+    .then((renderObject) => {
+      if (renderObject.rendered) return Promise.resolve(renderObject);
+      renderObject.rendered = true;
+
+      var viewport = renderObject.page.getViewport(scale);
+      var context = renderObject.element.getContext('2d');
+
+      return renderObject.page.render({
+        canvasContext: context,
+        viewport: viewport
+      })
+        .promise.then(() => {
+          return renderObject;
+        });
+  });
+};

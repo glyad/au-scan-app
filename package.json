@@ -68,6 +68,7 @@
     }
   },
   "dependencies": {
+    "@types/pdf": "0.0.31",
     "aurelia-bootstrapper-webpack": "^1.1.0",
     "aurelia-event-aggregator": "^1.0.0",
     "aurelia-fetch-client": "^1.0.1",
@@ -88,7 +89,8 @@
     "font-awesome": "^4.7.0",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.1.1",
-    "materialize-css": "^0.97.8"
+    "materialize-css": "^0.97.8",
+    "pdfjs-dist": "^1.6.418"
   },
   "devDependencies": {
     "@easy-webpack/config-aurelia": "^2.2.2",

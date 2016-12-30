@@ -1,11 +1,14 @@
 <template>
+    <require from="../../resources/components/pdf-document/pdf-document.ts"></require>
     <h1>Documents for Approval</h1>
 
     <div class="col-md-6">
             <compose view-model.bind="list" view="../views/documentslist.html"></compose>
     </div>
 
-    <!--<div class="col-md-6">
-        <compose view-model.bind="properties"></compose>
-    </div>-->
+    <div class="col-md-6">
+        <!--<compose view-model.bind="properties"></compose>-->
+
+        <pdf-document url="../../../assets/2.pdf"></pdf-document>
+    </div>
 </template>

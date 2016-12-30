@@ -5,6 +5,8 @@ import { DataService } from '../../model/implementation/DataService';
 import { autoinject, inject } from 'aurelia-framework';
 import { Properties } from './properties';
 import { Preview } from './preview';
+import { PDFJS } from 'pdfjs-dist';
+import 'pdfjs-dist';
 
 @inject(DataService, ViewModelCreatorService) 
 export class ScannerScreen {
@@ -20,6 +22,10 @@ export class ScannerScreen {
         this.previewViewModel = this._viewModelCreatorService.create<Preview>(Preview);
         this.propertiesViewModel = this._viewModelCreatorService.create<Properties>(Properties);
     }
+
+    onHren(pdf: PDFDocumentProxy): void {
+    }
+
 
     startScan(){
         this.isBusy = true;
