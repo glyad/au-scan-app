@@ -4,11 +4,9 @@ import '../styles/styles.css';
 import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'materialize-css';
-
+import 'aurelia-i18n';
 import {I18N} from 'aurelia-i18n';
 import * as Backend from 'i18next-xhr-backend';
-
-
 // import 'aurelia-animator-css';
 import 'bootstrap';
 
@@ -18,22 +16,20 @@ Bluebird.config({ warnings: false });
 
 export async function configure(aurelia: Aurelia) {
 
-    ViewLocator.prototype.convertOriginToViewUrl = (origin) => {
-        console.log('Origin ModuleId: ' + origin.moduleId + ' Origin ModuleMember: ' + origin.moduleMember);
-        let moduleId = origin.moduleId;
-        let id = moduleId.endsWith('.ts') ? moduleId.substring(0, moduleId.length - 3) : moduleId;
-        console.log('id = ' + id);
-        let result = `${id.replace('viewmodels', 'views')}.html`;
-        console.log('Result = ' + result);
-        return result; 
-    };
-
+  ViewLocator.prototype.convertOriginToViewUrl = (origin) => {
+    console.log('Origin ModuleId: ' + origin.moduleId + ' Origin ModuleMember: ' + origin.moduleMember);
+    let moduleId = origin.moduleId;
+    let id = moduleId.endsWith('.ts') ? moduleId.substring(0, moduleId.length - 3) : moduleId;
+    console.log('id = ' + id);
+    let result = `${id.replace('viewmodels', 'views')}.html`;
+    console.log('Result = ' + result);
+    return result; 
+  };
 
   aurelia.use
-    .standardConfiguration()
-    .developmentLogging()
-    .plugin('aurelia-materialize-bridge', bridge => bridge.useAll() );
-
+  .standardConfiguration()
+  .developmentLogging()
+  .plugin('aurelia-materialize-bridge', bridge => bridge.useAll() );
 
   // Uncomment the line below to enable animation.
   //aurelia.use.plugin('aurelia-animator-css');

@@ -1,5 +1,10 @@
 //Сделать свой файл по образцу EN
 
 {
-    "title": "Aurelia"
+	"scannerscreen":{
+		"title": "Scan Documents",
+	},
+	"documentsapprovalscreen":{
+    	"title": "Documents Approval",
+    }
 }
