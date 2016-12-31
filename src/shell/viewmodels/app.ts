@@ -15,10 +15,10 @@ export class App {
   @observable()
   public rtl: boolean = false;
 
-  constructor(public i18n: I18N){
+  constructor(public i18n:I18N){
     this.i18n=i18n;
-  }
-
+    console.log(this.i18n.i18next);
+   }
 
   configureRouter(config: RouterConfiguration, router: Router) {
     config.title = 'Aurelia';
