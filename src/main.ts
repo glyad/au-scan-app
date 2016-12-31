@@ -4,6 +4,8 @@ import '../styles/styles.css';
 import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'materialize-css';
+// import {I18N} from 'aurelia-i18n';
+// import * as Backend from 'i18next-xhr-backend';
 
 // import 'aurelia-animator-css';
 import 'bootstrap';
@@ -28,8 +30,24 @@ export async function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
     .developmentLogging()
-    .plugin('aurelia-materialize-bridge', bridge => bridge.useAll() );
-
+    .plugin('aurelia-materialize-bridge', bridge => bridge.useAll())
+    // .plugin('aurelia-i18n', (instance) => {
+    //     // register backend plugin
+    //     instance.i18next.use(Backend);
+      
+    //   // adapt options to your needs (see http://i18next.com/docs/options/)
+    //     // make sure to return the promise of the setup method, in order to guarantee proper loading
+    //     return instance.setup({
+    //       backend: {                                  // <-- configure backend settings
+    //         loadPath: './locales/{{lng}}/{{ns}}.json', // <-- XHR settings for where to get the files from
+    //       },
+    //       lng : 'de',
+    //       attributes : ['t','i18n'],
+    //       fallbackLng : 'en',
+    //       debug : false
+    //     });
+    // });
+;
 
   // Uncomment the line below to enable animation.
   //aurelia.use.plugin('aurelia-animator-css');
