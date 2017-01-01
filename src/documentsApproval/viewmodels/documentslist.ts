@@ -16,6 +16,7 @@ export class DocumentsList {
     canRemoveSelectedItem: boolean = false;
     selectedDocuments: Array<IDocument> = [];
     wc: WrappingCollection;
+    isBusy: boolean = false;
 
 
     constructor(private _dataService: DataService) { 
@@ -35,7 +36,10 @@ export class DocumentsList {
     removeSelectedItems() {
         
         this.selectedDocuments.forEach(item => {
-            this._dataService.deleteDocument(item.id);            
+            this.isBusy = true;
+
+            this._dataService.deleteDocument(item.id)
+                .then(() => this.isBusy = false);            
         });
 
         this.items.clearSelection();

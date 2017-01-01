@@ -8,8 +8,31 @@ methods in an event handler with separate binding behaviors. We work around this
 the event name by adding these lines to our ViewModel. */
 import {SyntaxInterpreter} from 'aurelia-templating-binding';
 
-//SyntaxInterpreter.prototype.trigger2 = SyntaxInterpreter.prototype.trigger;
 
+function extend<T, U>(first: T, second: U): T & U {
+    let result = <T & U>{};
+    for (let id in first) {
+        (<any>result)[id] = (<any>first)[id];
+    }
+    for (let id in second) {
+        if (!result.hasOwnProperty(id)) {
+            (<any>result)[id] = (<any>second)[id];
+        }
+    }
+    return result;
+}
+interface ITriggerXrenov {
+    trigger2(resources?: any, element?: any, info?: any): any
+}
+
+class TriggerXrenov implements ITriggerXrenov {
+
+    constructor(public trigger2: (resources?: any, element?: any, info?: any) => any) {    }
+    
+}
+
+
+   
 @customElement('pdf-document')
 @inject(TaskQueue, Loader)
 export class PdfDocument {
@@ -24,7 +47,7 @@ export class PdfDocument {
     lastpage: number = 1;
 
     @bindable({ name: 'scale', defaultValue: 1, defaultBindingMode: bindingMode.twoWay })
-    scale: number = 1;
+    scale: number = 0.5;
 
     worker: PDFJS.PDFWorker;
 
@@ -40,7 +63,9 @@ export class PdfDocument {
     container: any;
 
   constructor (private taskQueue, loader) {
-    //SyntaxInterpreter.prototype.trigger2 = SyntaxInterpreter.prototype.trigger;
+
+    SyntaxInterpreter.prototype = extend(SyntaxInterpreter.prototype, new TriggerXrenov(SyntaxInterpreter.prototype.trigger));
+
     
     PDFJS.workerSrc = loader.normalizeSync('pdfjs-dist/build/pdf.worker.js');
 

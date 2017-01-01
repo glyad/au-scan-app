@@ -37,7 +37,9 @@ export class DataService implements IDataService {
             this._documents.push( { name: 'Document ' + id.toString()
                 		, id: id
                         , description: 'This is description of the Document #' + id.toString()
-                        , caseId: 'Case #' + id.toString() } );                                    
+                        , caseId: 'Case #' + id.toString() } );   
+
+            resolve();                                 
         }, 1000));
     }
 
@@ -51,7 +53,9 @@ export class DataService implements IDataService {
             if (index > -1) {
                this._documents.splice(index, 1);
             }
-        }, 10));
+
+            resolve();
+        }, 300));
     }
 
     UpdateDocumentData( name: string, 
