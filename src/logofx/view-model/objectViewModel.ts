@@ -1,6 +1,6 @@
 import { IModel } from './../model';
 
-export default class ObjectViewModel<T extends IModel<any>> {
+export class ObjectViewModel<T extends IModel<any>> {
     
     private _model: T;
     private _isSelected: boolean = false;

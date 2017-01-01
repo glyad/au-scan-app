@@ -14,7 +14,7 @@ export class DataService implements IDataService {
 
         console.log('DataService.ctr');
 
-		for (let i = 0; i < 1000; i++) {
+		for (let i = 0; i < 100; i++) {
 			this._documents
             	.push (	{ name: 'Document ' + i.toString()
                 		, id: i
@@ -26,6 +26,32 @@ export class DataService implements IDataService {
 
     get documents(): Array<IDocument> {
         return this._documents;
+    }
+
+    createDocument(): Promise<any> {        
+        return new Promise(resolve => setTimeout(() => {
+            let lastIndex: number = this._documents.length - 1;
+            let id: number = this._documents[lastIndex].id;
+            id += 1;
+
+            this._documents.push( { name: 'Document ' + id.toString()
+                		, id: id
+                        , description: 'This is description of the Document #' + id.toString()
+                        , caseId: 'Case #' + id.toString() } );                                    
+        }, 1000));
+    }
+
+    deleteDocument(id: number): Promise<any> {
+        return new Promise(resolve => setTimeout(() => {
+            let candidate = this._documents.find((item) => item.id == id);
+            if (candidate === undefined)
+                throw new Error('The item is not found.');
+
+            let index = this._documents.indexOf(candidate, 0);
+            if (index > -1) {
+               this._documents.splice(index, 1);
+            }
+        }, 10));
     }
 
     UpdateDocumentData( name: string, 

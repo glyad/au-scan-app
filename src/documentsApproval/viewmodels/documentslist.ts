@@ -1,3 +1,7 @@
+import { BindingEngine } from 'aurelia-framework';
+import { Container } from 'aurelia-framework';
+import { ObjectViewModel } from './../../logofx/view-model/objectViewModel';
+import { WrappingCollection } from './../../logofx/view-model/WrappingCollection';
 import { IDocument } from './../../model/contracts';
 import { DataService } from './../../model/implementation';
 import { autoinject, transient } from 'aurelia-framework';
@@ -11,10 +15,13 @@ export class DocumentsList {
     canSelectAll: boolean = true;
     canRemoveSelectedItem: boolean = false;
     selectedDocuments: Array<IDocument> = [];
+    wc: WrappingCollection;
 
 
     constructor(private _dataService: DataService) { 
-        this.list = this._dataService.documents;       
+        this.list = this._dataService.documents;    
+
+        this.wc = new WrappingCollection((item) => { return new ObjectViewModel<IDocument>(<IDocument>item) }, this._dataService.documents);   
     }
 
 	onSelectionChanged(e) {
@@ -28,10 +35,7 @@ export class DocumentsList {
     removeSelectedItems() {
         
         this.selectedDocuments.forEach(item => {
-            let index = this.list.indexOf(item, 0);
-            if (index > -1) {
-               this.list.splice(index, 1);
-            }
+            this._dataService.deleteDocument(item.id);            
         });
 
         this.items.clearSelection();

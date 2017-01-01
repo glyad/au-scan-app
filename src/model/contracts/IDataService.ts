@@ -7,7 +7,7 @@ export interface IDataService {
     scanDocument(): Promise<any>;
     // getDocument(id: number);
     // getDocuments(): void;
-    // createDocument(): void;
-    // deleteDocument(id: number): void;
+    createDocument(): Promise<any>;
+    deleteDocument(id: number): Promise<any>;
     // updateDocument(id: number): void;
 }
