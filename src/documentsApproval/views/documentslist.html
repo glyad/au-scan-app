@@ -17,11 +17,11 @@
                 <div class="scrolled-content">
             
                     <md-collection view-model.ref="items">
-                        <md-collection-item repeat.for="document of list" class="avatar ${ selector.isSelected ? 'selected' : '' } ${ selector.mdDisabled ? 'disabled' : '' }">
+                        <md-collection-item repeat.for="document of wc" class="avatar ${ selector.isSelected ? 'selected' : '' } ${ selector.mdDisabled ? 'disabled' : '' }">
                             <md-collection-selector view-model.ref="selector" item.bind="document" md-on-selection-changed.delegate="onSelectionChanged($event)"></md-collection-selector>
-                            <span class="accent-text title">${document.name}</span>
-                            <p>${document.description}</p>
-                            <p><label>Case ID:&nbsp;&nbsp;</label>${document.caseId}</p>
+                            <span class="accent-text title">${document.model.name}</span>
+                            <p>${document.model.description}</p>
+                            <p><label>Case ID:&nbsp;&nbsp;</label>${document.model.caseId}</p>
                             <div class="secondary-content">
                             <i class="material-icons">send</i>
                             </div>

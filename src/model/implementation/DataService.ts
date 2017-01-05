@@ -40,7 +40,7 @@ export class DataService implements IDataService {
                         , caseId: 'Case #' + id.toString() } );   
 
             resolve();                                 
-        }, 1000));
+        }, 1));
     }
 
     deleteDocument(id: number): Promise<any> {

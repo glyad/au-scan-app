@@ -13,7 +13,7 @@ export class WrappingCollection extends Array {
     public factoryMethod: (item: IModel<any> | any) => ObjectViewModel<IModel<any>> | any | null | undefined;
 
     private _bindingEngine: BindingEngine;
-    private _source: Array<any> | null | undefined = null;
+    private _source: Array<any>;
     private _internalList: Array<any>;
 
     
@@ -37,7 +37,7 @@ export class WrappingCollection extends Array {
         
         Core.getDefaultObserverLocator()
             .getArrayObserver(this._source)
-            .subscribe(this.clbk, (changes: Object) => {
+            .subscribe('clbk', (changes: Object) => {
                 if ((<Array<any>>changes).length == 0)
                     return;
 
@@ -45,12 +45,18 @@ export class WrappingCollection extends Array {
 
                 if (innerChanges.addedCount > 0) {
                     console.log('Added:' + innerChanges.addedCount.toString());
+                         
+                    this.splice(innerChanges.index, 0, WrappingCollection.createWrapper(this._source[innerChanges.index], this.factoryMethod));
+                               
                 }
                 else if (innerChanges.removed.length > 0)
                 {
+                    this.splice(innerChanges.index, 1);
                     innerChanges.removed.forEach((removed) => {
+                        
+                        
                         let model: IModel<any> = removed;
-
+                        
                         console.log('Removed ' + 'Id: ' + model.id + '  name: ' + removed.name + '  toString():  ' + removed.toString());
                         
                     });

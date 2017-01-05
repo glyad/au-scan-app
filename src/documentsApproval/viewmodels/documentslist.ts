@@ -1,5 +1,5 @@
 import { BindingEngine } from 'aurelia-framework';
-import { Container } from 'aurelia-framework';
+import { Container, observable } from 'aurelia-framework';
 import { ObjectViewModel } from './../../logofx/view-model/objectViewModel';
 import { WrappingCollection } from './../../logofx/view-model/WrappingCollection';
 import { IDocument } from './../../model/contracts';
@@ -14,7 +14,9 @@ export class DocumentsList {
     canClear: boolean = false;
     canSelectAll: boolean = true;
     canRemoveSelectedItem: boolean = false;
-    selectedDocuments: Array<IDocument> = [];
+    selectedDocuments: Array<ObjectViewModel<IDocument>> = [];
+    
+    @observable
     wc: WrappingCollection;
     isBusy: boolean = false;
 
@@ -38,8 +40,12 @@ export class DocumentsList {
         this.selectedDocuments.forEach(item => {
             this.isBusy = true;
 
-            this._dataService.deleteDocument(item.id)
-                .then(() => this.isBusy = false);            
+            this._dataService.deleteDocument(item.model.id)
+                .then(() => this.isBusy = false)
+                .catch((reason) => {
+                    alert(reason.toString());
+                    this.isBusy = false;
+                });            
         });
 
         this.items.clearSelection();
