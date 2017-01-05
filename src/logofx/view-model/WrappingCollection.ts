@@ -4,7 +4,6 @@ import { ObjectViewModel } from './objectViewModel';
 import * as Core from '../Core';
 import {ObserverLocator, Callable} from 'aurelia-binding';
 
-@autoinject()
 @transient()
 export class WrappingCollection extends Array {
 
@@ -38,7 +37,7 @@ export class WrappingCollection extends Array {
         
         Core.getDefaultObserverLocator()
             .getArrayObserver(this._source)
-            .subscribe('clbk', (changes: Object) => {
+            .subscribe(this.clbk, (changes: Object) => {
                 if ((<Array<any>>changes).length == 0)
                     return;
 

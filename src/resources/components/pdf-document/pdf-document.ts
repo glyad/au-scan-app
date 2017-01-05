@@ -47,7 +47,7 @@ export class PdfDocument {
     lastpage: number = 1;
 
     @bindable({ name: 'scale', defaultValue: 1, defaultBindingMode: bindingMode.twoWay })
-    scale: number = 0.5;
+    scale: number = 0.1;
 
     worker: PDFJS.PDFWorker;
 

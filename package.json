@@ -90,7 +90,8 @@
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.1.1",
     "materialize-css": "^0.97.8",
-    "pdfjs-dist": "^1.6.418"
+    "pdfjs-dist": "^1.6.418",
+    "typescript-collections": "^1.2.3"
   },
   "devDependencies": {
     "@easy-webpack/config-aurelia": "^2.2.2",
