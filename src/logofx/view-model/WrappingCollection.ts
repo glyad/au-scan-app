@@ -7,14 +7,10 @@ import {ObserverLocator, Callable} from 'aurelia-binding';
 @transient()
 export class WrappingCollection extends Array {
 
-    // @inject(ObserverLocator)
-    // get observerLocator(): ObserverLocator { return [ObserverLocator]; };
-
     public factoryMethod: (item: IModel<any> | any) => ObjectViewModel<IModel<any>> | any | null | undefined;
 
     private _bindingEngine: BindingEngine;
     private _source: Array<any>;
-    private _internalList: Array<any>;
 
     
 
@@ -43,23 +39,12 @@ export class WrappingCollection extends Array {
 
                 let innerChanges = changes[0];
 
-                if (innerChanges.addedCount > 0) {
-                    console.log('Added:' + innerChanges.addedCount.toString());
-                         
-                    this.splice(innerChanges.index, 0, WrappingCollection.createWrapper(this._source[innerChanges.index], this.factoryMethod));
-                               
+                if (innerChanges.addedCount == 1) {                         
+                    this.splice(innerChanges.index, 0, WrappingCollection.createWrapper(this._source[innerChanges.index], this.factoryMethod));                               
                 }
-                else if (innerChanges.removed.length > 0)
+                else if (innerChanges.removed.length == 1)
                 {
-                    this.splice(innerChanges.index, 1);
-                    innerChanges.removed.forEach((removed) => {
-                        
-                        
-                        let model: IModel<any> = removed;
-                        
-                        console.log('Removed ' + 'Id: ' + model.id + '  name: ' + removed.name + '  toString():  ' + removed.toString());
-                        
-                    });
+                    this.splice(innerChanges.index, 1);                    
                 }
                 
             });
@@ -67,11 +52,6 @@ export class WrappingCollection extends Array {
             this._source.forEach((item) => {
                 this.push(WrappingCollection.createWrapper(item, this.factoryMethod));
             });
-
-            console.log('this.length: ' + this.length);
-            //this.forEach((item: ObjectViewModel<IModel<any>>) => console.log('Model.Id: ' + item.model.id.toString()));
-
-        
     }
 
     clbk( changes: any){
