@@ -11,7 +11,7 @@ export class WrappingCollection extends Array {
 
     private _bindingEngine: BindingEngine;
     private _source: Array<any>;
-
+    
     
 
     constructor ( factoryMethod?: (item: IModel<any>) => ObjectViewModel<IModel<any>>
@@ -41,10 +41,17 @@ export class WrappingCollection extends Array {
 
                 if (innerChanges.addedCount == 1) {                         
                     this.splice(innerChanges.index, 0, WrappingCollection.createWrapper(this._source[innerChanges.index], this.factoryMethod));                               
-                }
-                else if (innerChanges.removed.length == 1)
-                {
+                } else if (innerChanges.addedCount > 1) {
+                    for (let i = 0; i < innerChanges.addedCount; i++) {
+                        this.splice(innerChanges.index + i, 0, WrappingCollection.createWrapper(this._source[innerChanges.index + i], this.factoryMethod));
+                    }
+                } else if (innerChanges.removed.length == 1) {
                     this.splice(innerChanges.index, 1);                    
+                } else if (innerChanges.removed.length > 1) {
+                    innerChanges.removed.forEach(originalItem => {
+                        let index = this.findIndex(item => { return item.model === originalItem});
+                        this.splice(index, 1);
+                    });
                 }
                 
             });

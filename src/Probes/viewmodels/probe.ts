@@ -23,8 +23,16 @@ export class Probe {
         this._dataService.createDocument();
     }
 
-    public remove(){
+    public addMany() {
+        this._dataService.createRangeOfDocuments(5);
+    }
+
+    public remove() {
         this._dataService.deleteDocument(this._dataService.documents[0].id);
+    }
+
+    public removeMany() {
+        this._dataService.deleteLastOfDocuments(5);
     }
     
 }

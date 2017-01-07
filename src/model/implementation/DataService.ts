@@ -43,6 +43,34 @@ export class DataService implements IDataService {
         }, 1));
     }
 
+    createRangeOfDocuments(count: number): Promise<any> {
+        return new Promise<any>(resolve => {
+            try {
+
+                let lastIndex: number = this._documents.length - 1;
+                    let id: number = this._documents[lastIndex].id;
+                    
+                    let tempArray: Array<IDocument> = [];
+        
+                    for(let i: number = 0; i < count; i++, ++id) {
+                        tempArray.push( { name: 'Document ' + id.toString()
+                        		, id: id
+                                , description: 'This is description of the Document #' + id.toString()
+                                , caseId: 'Case #' + id.toString() } );   
+                    }
+        
+                    // Kills observation!
+                    this._documents = this._documents.concat(tempArray);
+
+                    resolve(this._documents);
+                    
+            } catch (error) {
+                throw error;
+            }
+            
+        });
+    }
+
     deleteDocument(id: number): Promise<any> {
         return new Promise(resolve => setTimeout(() => {
             let candidate = this._documents.find((item) => item.id == id);
@@ -55,6 +83,13 @@ export class DataService implements IDataService {
             }
 
             resolve();
+        }, 300));
+    }
+
+    deleteLastOfDocuments(count: number): Promise<any> {
+        return new Promise(resolve => setTimeout(() => {
+            let startIndexToDelete: number = this._documents.length - count; 
+            this._documents.splice(startIndexToDelete, count);                
         }, 300));
     }
 

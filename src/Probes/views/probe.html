@@ -4,6 +4,8 @@
     <div>
         <button md-button click.delegate="addItem()" >add</button>
         <button md-button click.delegate="remove()" >remove</button>
+        <button md-button click.delegate="addMany()" >add range</button>
+        <button md-button click.delegate="removeMany()" >remove range</button>
     </div>
 
     <div repeat.for="document of documents">

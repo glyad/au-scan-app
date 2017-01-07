@@ -1,4 +1,4 @@
-﻿import {Aurelia, ViewLocator} from 'aurelia-framework';
+﻿import { Aurelia, ViewLocator, Container } from 'aurelia-framework';
 // we want font-awesome to load as soon as possible to show the fa-spinner
 import '../styles/styles.css';
 import 'font-awesome/css/font-awesome.css';
@@ -14,12 +14,21 @@ import 'bootstrap';
 import * as Bluebird from 'bluebird';
 Bluebird.config({ warnings: false });
 
+// (function () {
+//   Container.prototype.get = function(key:any, ...rest) {
+//     return Container.prototype.get;
+//   }
+//   alert('HERE');
+
+// })();
+
 export async function configure(aurelia: Aurelia) {
 
     ViewLocator.prototype.convertOriginToViewUrl = (origin) => {
         console.log('Origin ModuleId: ' + origin.moduleId + ' Origin ModuleMember: ' + origin.moduleMember);
         let moduleId = origin.moduleId;
         let id = moduleId.endsWith('.ts') ? moduleId.substring(0, moduleId.length - 3) : moduleId;
+        id = id.toLowerCase().endsWith('viewmodel') ? id.substring(0, id.length - 5) : id;
         console.log('id = ' + id);
         let result = `${id.replace('viewmodels', 'views')}.html`;
         console.log('Result = ' + result);

@@ -9,7 +9,6 @@ import { autoinject, transient } from 'aurelia-framework';
 @autoinject()
 export class DocumentsList {
 	
-    list: Array<IDocument>;
     items;
     canClear: boolean = false;
     canSelectAll: boolean = true;
@@ -22,8 +21,6 @@ export class DocumentsList {
 
 
     constructor(private _dataService: DataService) { 
-        this.list = this._dataService.documents;    
-
         this.wc = new WrappingCollection((item) => { return new ObjectViewModel<IDocument>(<IDocument>item) }, this._dataService.documents);   
     }
 
@@ -32,7 +29,7 @@ export class DocumentsList {
 	    this.canRemoveSelectedItem 
             = this.canClear 
             = this.selectedDocuments.length > 0;    
-        this.canSelectAll = this.list.length != this.selectedDocuments.length;
+        this.canSelectAll = this.wc.length != this.selectedDocuments.length;
     }
 
     removeSelectedItems() {
