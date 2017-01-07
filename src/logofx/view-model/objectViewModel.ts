@@ -10,26 +10,26 @@ export class ObjectViewModel<T extends IModel<any>> {
         this._model = model;
     }
 
-    get model(): T {
+    public get model(): T {
         return this._model;
     }
 
-    get isSelected(): boolean {
+    public get isSelected(): boolean {
         return this._isSelected;
     }
 
-    set isSelected(value: boolean) {
+    public set isSelected(value: boolean) {
         if (this._isSelected === value)
             return;
         
         this._isSelected = value;
     }
 
-    get isEnabled(): boolean {
+    public get isEnabled(): boolean {
         return this._isEnabled;
     }
 
-    set isEnabled(value: boolean) {
+    public set isEnabled(value: boolean) {
         if (this._isEnabled === value) {
             return;
         }

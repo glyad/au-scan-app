@@ -8,6 +8,7 @@ import { DataService } from './../../model/implementation';
 export class Probe {
 
     private _wc: WrappingCollection;
+    public isBusy: boolean = false;
 
     constructor(private _dataService: DataService) { 
          this._wc = new WrappingCollection((item) => { return new DocumentViewModel(<IDocument>item) }, this._dataService.documents);   
@@ -19,6 +20,40 @@ export class Probe {
         return this._wc;
     }
 
+    public get canSelectAll(): boolean {
+        return this.documents.canSelectAll();
+    }
+    
+    public get canClear(): boolean {
+        return this.documents.canUnselectAll();
+    }
+
+    public get canRemoveSelectedItem(): boolean {
+        return this.canClear;
+    }
+
+    public selectAll() {
+        this.documents.selectAll();
+    }
+
+    public clearSelection() {
+        this.documents.unselectAll();
+    }
+
+    public removeSelectedItems() {
+        
+        this.documents.getSelectedItems().forEach(item => {
+            this.isBusy = true;
+
+            this._dataService.deleteDocument(item.model.id)
+                .then(() => this.isBusy = false)
+                .catch((reason) => {
+                    alert(reason.toString());
+                    this.isBusy = false;
+                });            
+        });
+    }
+    
     public addItem(){
         this._dataService.createDocument();
     }

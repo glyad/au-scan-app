@@ -31,7 +31,7 @@ export class DataService implements IDataService {
     createDocument(): Promise<any> {        
         return new Promise(resolve => setTimeout(() => {
             let lastIndex: number = this._documents.length - 1;
-            let id: number = this._documents[lastIndex].id;
+            let id: number = this._documents.length > 0 ? this._documents[lastIndex].id : -1;
             id += 1;
 
             this._documents.push( { name: 'Document ' + id.toString()
