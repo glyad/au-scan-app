@@ -16,10 +16,21 @@
         <compose view-model.bind="document"></compose>
     </div>-->
 
-    <md-collection>
+    <md-collection class="col-md-4">
         <md-collection-item repeat.for="document of documents" class="avatar ${ document.isSelected ? 'selected' : '' }">
             <compose view-model.bind="document"></compose>
         </md-collection-item>
     </md-collection>
+
+    <div class="col-md-offset-2 col-md-4">
+        <form role="form" class="form-horizontal">
+            <div class="form-group">
+                <!--<label class="col-sm-2 control-label">Name</label>-->
+                <div class="col-sm-10">
+                    <input type="text" placeholder="Name" class="form-control" value.bind="name">
+                </div>
+            </div>
+        </form>
+    </div>
                             
 </template>

@@ -40,6 +40,7 @@ export async function configure(aurelia: Aurelia) {
     .standardConfiguration()
     .developmentLogging()
     .plugin('aurelia-materialize-bridge', bridge => bridge.useAll())
+    .plugin('aurelia-validation')
     // .plugin('aurelia-i18n', (instance) => {
     //     // register backend plugin
     //     instance.i18next.use(Backend);

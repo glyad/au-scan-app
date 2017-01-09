@@ -14,7 +14,7 @@ export class DataService implements IDataService {
 
         console.log('DataService.ctr');
 
-		for (let i = 0; i < 100; i++) {
+		for (let i = 0; i < 10; i++) {
 			this._documents
             	.push (	{ name: 'Document ' + i.toString()
                 		, id: i
