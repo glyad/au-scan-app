@@ -1,6 +1,6 @@
-import { IDocument } from './../../model/contracts/IDocument';
-import { ObjectViewModel } from './../../logofx/view-model/objectViewModel';
-
+import { DataService } from './../../model/implementation';
+import { IDocument } from './../../model/contracts';
+import { ObjectViewModel } from './../../logofx/view-model';
 
 export class DocumentViewModel extends ObjectViewModel<IDocument> {
 
