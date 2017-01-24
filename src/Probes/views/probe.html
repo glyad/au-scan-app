@@ -18,7 +18,8 @@
 
     <md-collection class="col-md-4">
         <md-collection-item repeat.for="document of documents" class="avatar ${ document.isSelected ? 'selected' : '' }">
-            <compose view-model.bind="document"></compose>
+            <!-- TODO: Need to understand, why it don't work on Windows without "View" attribute -->
+            <compose view-model.bind="document" view="../views/documentView.html"></compose>
         </md-collection-item>
     </md-collection>
 
@@ -27,7 +28,11 @@
             <div class="form-group">
                 <!--<label class="col-sm-2 control-label">Name</label>-->
                 <div class="col-sm-10">
-                    <input type="text" placeholder="Name" class="form-control" value.bind="name">
+                    <md-input md-label="Name"
+                            md-placeholder="Name"
+                            md-validate="true"
+                            md-validate-success="good"
+                            value.bind="name"></md-input>
                 </div>
             </div>
         </form>

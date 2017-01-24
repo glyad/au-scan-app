@@ -47,20 +47,21 @@ export class DataService implements IDataService {
         return new Promise<any>(resolve => {
             try {
 
-                let lastIndex: number = this._documents.length - 1;
-                    let id: number = this._documents[lastIndex].id;
+                    let lastIndex: number = this._documents.length - 1;
+                    let id: number = this._documents[lastIndex] === undefined ? -1 : this._documents[lastIndex].id;
                     
-                    let tempArray: Array<IDocument> = [];
+                    //let tempArray: Array<IDocument> = [];
         
-                    for(let i: number = 0; i < count; i++, ++id) {
-                        tempArray.push( { name: 'Document ' + id.toString()
+                    for(let i: number = 0; i < count; i++) {
+                        ++id;
+                        this._documents.push( { name: 'Document ' + id.toString()
                         		, id: id
                                 , description: 'This is description of the Document #' + id.toString()
                                 , caseId: 'Case #' + id.toString() } );   
                     }
         
-                    // Kills observation!
-                    this._documents = this._documents.concat(tempArray);
+                    // Kills observation!                    
+                    //this._documents = this._documents.concat(tempArray);
 
                     resolve(this._documents);
                     

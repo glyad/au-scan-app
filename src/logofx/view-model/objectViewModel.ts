@@ -1,6 +1,6 @@
 import { IModel } from './../model';
 
-export class ObjectViewModel<T extends IModel<any>> {
+export abstract class ObjectViewModel<T extends IModel<any>> {
     
     private _model: T;
     private _isSelected: boolean = false;
@@ -35,5 +35,7 @@ export class ObjectViewModel<T extends IModel<any>> {
         }
         this._isEnabled = value;        
     }
+
+    
 
 } 

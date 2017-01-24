@@ -69,5 +69,9 @@ export class Probe {
     public removeMany() {
         this._dataService.deleteLastOfDocuments(5);
     }
+
+    // canDeactivate() {
+    //     return false;
+    // }
     
 }
