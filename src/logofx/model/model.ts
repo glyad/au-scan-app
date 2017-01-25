@@ -1,10 +1,47 @@
+import { ValidationRules, Rule } from 'aurelia-validation';
 export interface IModel<T> {
     id: T;
+
+    validationRules: ValidationRules;
+
+    rules: Rule<{}, any>[][];
 }
 
 export class Model<T> implements IModel<T> {
     
     id: T;
+
+    private _validationRules: ValidationRules;
+    private _rules: Rule<{}, any>[][];
+
+    // public  validationRules: () => ValidationRules = () =>{
+    //     return this._validationRules;
+    // }
+
+    public get validationRules(): ValidationRules {
+        return this._validationRules;
+    }
+
+    public set validationRules(value: ValidationRules) {
+        if (value === this._validationRules) {
+            return;
+        }
+        
+        this._validationRules = value;
+    }
+
+    public get rules(): Rule<{}, any>[][] {
+        return this._rules;
+    }
+
+    public set rules(value: Rule<{}, any>[][]) 
+    {
+        if (value === this._rules) {
+            return;
+        }
+
+        this._rules = value;
+    }
 
     toString(): string {
         return makeString(this);

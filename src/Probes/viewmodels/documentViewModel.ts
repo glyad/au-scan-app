@@ -12,26 +12,26 @@ export class DocumentViewModel extends ObjectViewModel<IDocument> {
     constructor(model: IDocument){
         super(model);
 
-        
+        this.controller.addRenderer(new MaterializeFormValidationRenderer());
+     }
+
+    
+    
+    activate(params, routeConfig, navigationInstruction) {
+        console.log('DocumentViewModel -> activate.');
     }
 
-    
-    
-    // activate(params, routeConfig, navigationInstruction) {
-    //     console.log('DocumentViewModel -> activate.');
-    // }
-
-    // deactivate() {
-    //     console.log('DocumentViewModel -> deactivate.');
-    // }
+    deactivate() {
+        console.log('DocumentViewModel -> deactivate.');
+    }
 
     // created(owningView: View, myView: View) {
     //     //console.log(owningView.fragment.textContent);
 
     //  }
   
-    // canDeactivate() {
-    //     console.log('canDeactivate() called.')
-    //     return false;
-    // }
+    canDeactivate() {
+        console.log('canDeactivate() called.')
+        return false;
+    }
 }

@@ -24,18 +24,7 @@
     </md-collection>
 
     <div class="col-md-offset-2 col-md-4">
-        <form role="form" class="form-horizontal">
-            <div class="form-group">
-                <!--<label class="col-sm-2 control-label">Name</label>-->
-                <div class="col-sm-10">
-                    <md-input md-label="Name"
-                            md-placeholder="Name"
-                            md-validate="true"
-                            md-validate-success="good"
-                            value.bind="name"></md-input>
-                </div>
-            </div>
-        </form>
+        <compose view-model.bind="documentViewModel" view="../views/editableDocumentView.html"></compose>
     </div>
                             
 </template>

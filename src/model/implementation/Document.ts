@@ -1,3 +1,4 @@
+import { bindable, bindingMode } from 'aurelia-framework';
 import { ValidationRules } from 'aurelia-validation';
 import { IDocument } from './../contracts';
 import { IModel } from './../../logofx/model/model';
@@ -5,17 +6,18 @@ import { Model } from './../../logofx/model/model';
 
 export class Document extends Model<number> implements IDocument
 {
-
-    name: string;
-    description: string;
-    caseId: string;
+    public name: string = '';
+    public description: string = '';
+    public caseId: string = '';
 
     constructor () {
         super();
 
-        ValidationRules
-            .ensure('name').required().minLength(5).maxLength(32).withMessage('Wrong input.')
-            .on(this);
+        this.rules = ValidationRules
+            .ensure((p: Document) => p.name).displayName('Name').required().withMessage('The value is mandatory')
+            .ensure((p: Document) => p.name).displayName('Name').minLength(5)
+            .ensure((p: Document) => p.caseId).maxLength(5).withMessage('Wrong input.')
+            .rules;
     }
     
 }

@@ -1,0 +1,31 @@
+<template>
+    <form role="form" class="form-horizontal">
+            <div class="form-group">
+                <!--<label class="col-sm-2 control-label">Name</label>-->
+                <span>${name}</span>
+                <div class="col-sm-10">
+                    <md-input md-label="Name"
+                            md-placeholder="Name"
+                            md-show-errortext="true"
+                            md-value.two-way="model.name & validateOnChange:model.rules"></md-input>
+
+                    <!--<input  type="text"
+                            value.two-way="model.name & validate:model.rules">-->
+
+
+                    <md-input md-label="Case ID"
+                            md-placeholder="Case ID"
+                            md-show-errortext="true"
+                            md-value.two-way="model.caseId & validate:model.rules"></md-input>
+                </div>
+            </div>
+        </form>
+
+    <ul style="margin-top: 15px;" show.bind="controller.errors.length">
+        <li repeat.for="error of controller.errors">
+            <a href="#" click.delegate="error.target.focus()">
+                ${error.message}
+             </a>
+        </li>
+    </ul>
+</template>

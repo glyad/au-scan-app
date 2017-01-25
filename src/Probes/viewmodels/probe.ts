@@ -1,3 +1,4 @@
+import { Document } from './../../model/implementation/Document';
 import { autoinject } from 'aurelia-framework';
 import { IDocument } from './../../model/contracts/IDocument';
 import { DocumentViewModel } from './documentViewModel';
@@ -7,17 +8,32 @@ import { DataService } from './../../model/implementation';
 @autoinject
 export class Probe {
 
+    private _editableDocument: IDocument;
+    private _editableDocumentViewModel;
     private _wc: WrappingCollection;
     public isBusy: boolean = false;
 
     constructor(private _dataService: DataService) { 
-         this._wc = new WrappingCollection((item) => { return new DocumentViewModel(<IDocument>item) }, this._dataService.documents);   
+        this._wc = new WrappingCollection((item) => { return new DocumentViewModel(<IDocument>item) }, this._dataService.documents);   
+        
+        this._editableDocument = new Document();
+        this._editableDocument.id = 1234;
+        this._editableDocument.name = 'Вася';
+        this._editableDocument.description = 'ХУЙ!';
+        this._editableDocument.caseId = '121';
 
-         console.log('Probe: ' + this._wc.length);
+        this._editableDocumentViewModel = new DocumentViewModel(this._editableDocument);
+
+        
+        console.log('Probe: ' + this._wc.length);
     }
 
     public get documents(): WrappingCollection {
         return this._wc;
+    }
+
+    public get documentViewModel(): DocumentViewModel {
+        return this._editableDocumentViewModel;
     }
 
     public get canSelectAll(): boolean {
